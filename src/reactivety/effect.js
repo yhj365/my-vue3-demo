@@ -28,7 +28,6 @@ export const effect = (fn, scheduler = null ) =>{
     }finally{
       effectStack.pop()
       activeEffect = effectStack[effectStack.length - 1]
-      
     }
   }
   // 先执行一次
