@@ -40,5 +40,12 @@ export const trigger = (target, key) => {
     if (!deps) {
         return console.error('no deps');
     }
-    deps.forEach(effect => effect());
+    deps.forEach(effect => {
+        if (effect?.options?.scheduler) {
+            effect?.options?.scheduler?.();
+        }
+        else {
+            effect();
+        }
+    });
 };
