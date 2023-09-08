@@ -14,9 +14,8 @@ const waterList = reactive<any[]>([])
 const heightList:number[] = []
 const init = ()=>{
   const width = 130
-  const x = document.body.clientWidth
+  const x = document.body.offsetWidth
   const column = Math.floor(x / width)
-  console.log(column)
   for (let i = 0; i < props.list.length; i++) {
     if(i< column){
       props.list[i].left = i* width

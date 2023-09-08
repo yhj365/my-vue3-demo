@@ -1,6 +1,6 @@
 <template>
   <div class="xm-content">
-    content
+    <Main></Main>
     <ScssTest></ScssTest>
     <WaterFall :list="waterFallList"></WaterFall>
   </div>
@@ -8,6 +8,7 @@
 
 <script setup>
 import {ref} from 'vue'
+import Main from '@/views/Main/index.vue'
 import ScssTest from '@/views/ScssTest/index.vue'
 import WaterFall from '@/views/water-fall/index.vue'
 

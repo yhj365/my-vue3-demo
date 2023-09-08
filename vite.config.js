@@ -1,9 +1,10 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path'
+import DefineOptions from 'unplugin-vue-define-options/vite';
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [DefineOptions(),vue()],
   publicPath: "./",
   resolve:{
     alias:{
