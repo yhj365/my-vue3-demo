@@ -1,5 +1,6 @@
 <template>
   <div>
+    <DynamicComponents :data="treeData"></DynamicComponents>
     <Card></Card>
     <Tree :data="treeData"></Tree>
   </div>
@@ -7,6 +8,7 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
+import DynamicComponents from '@/views/DynamicComponents/index.vue'
 
 interface Tree {
   name: string,
