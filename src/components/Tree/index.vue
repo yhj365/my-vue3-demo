@@ -22,7 +22,7 @@ interface Tree {
 }
 defineProps<{data?:Tree[]}>()
 
-function clickTap(item: Tree, event){
+function clickTap(item: Tree, event:any){
   console.log(item);
   console.log(event);
   
