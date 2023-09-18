@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SetupFunc name="setup函数传值" @on-click="clickSetupFunc"></SetupFunc>
     <button @click="randomHandlder">随机按钮</button>
     <TransitionGroup move-class="move-animal" tag="div" class="wraps">
       <div class="items" v-for="item in list" :key="item.id">
@@ -22,9 +23,14 @@
 import {ref,reactive,watch} from 'vue'
 import DynamicComponents from '@/views/DynamicComponents/index.vue'
 import ProvideDemo from '@/views/ProvideDemo/index.vue'
+import SetupFunc from '@/views/Tsx/SetupFunc'
 import _ from 'lodash'
 import gsap from 'gsap'
 
+function clickSetupFunc(params:any) {
+  console.log(params);
+  
+}
 const list = ref(Array.apply(null,{length: 81} as number[]).map((_,index)=>{
   return {
     id: index,

@@ -20,6 +20,8 @@
     <h1>兄弟组件传值</h1>
     <BroA @on-click="broAClick"></BroA>
     <BroB :flat="flat"></BroB>
+    <MittA></MittA>
+    <MittB></MittB>
   </div>
 </template>
 
@@ -28,6 +30,8 @@ import {ref,provide} from 'vue'
 import ProvideA from "./components/ProvideA.vue"
 import BroA from "./components/BroA.vue"
 import BroB from "./components/BroB.vue"
+import MittA from "./components/MittA.vue"
+import MittB from "./components/MittB.vue"
 
 const colorVal = ref('red')
 

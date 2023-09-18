@@ -9,15 +9,17 @@
   "dependencies": {
     "gsap": "^3.12.2",
     "lodash": "^4.17.21",
+    "mitt": "^3.0.1",
     "unplugin-vue-define-options": "^1.3.17",
-    "vue": "^3.0.4"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.198",
     "@types/node": "^20.6.0",
-    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vue/compiler-sfc": "^3.0.4",
     "sass": "^1.66.1",
-    "vite": "^3.1.0"
+    "vite": "^4.4.9"
   }
 }
