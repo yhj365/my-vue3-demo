@@ -1,11 +1,23 @@
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
+// import vueJsx from '@vitejs/plugin-vue-jsx';
+import myJsx from "./plugin/index";
 import path from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite';
+import AutoImport from "unplugin-auto-import/vite";
 
 export default defineConfig({
-  plugins: [DefineOptions(),vue(),vueJsx()],
+  plugins: [
+    DefineOptions(),
+    vue(),
+    // vueJsx()
+    // 手写vueJsx插件
+    myJsx(),
+    AutoImport({
+      imports: ['vue'],
+      dts: 'src/auto-import.d.ts',
+    })
+  ],
   resolve:{
     alias:{
       // 设置路径

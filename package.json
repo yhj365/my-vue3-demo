@@ -7,6 +7,11 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/plugin-transform-typescript": "^7.22.15",
+    "@types/babel__core": "^7.20.2",
+    "@vue/babel-plugin-jsx": "^1.1.5",
     "gsap": "^3.12.2",
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
@@ -20,6 +25,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vue/compiler-sfc": "^3.0.4",
     "sass": "^1.66.1",
+    "unplugin-auto-import": "^0.16.6",
     "vite": "^4.4.9"
   }
 }

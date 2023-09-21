@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div>
+      <h1>我是v-model父组件</h1>
+      <div>{{ textValue }}</div>
+      <div>
+        <button @click="isShow = !isShow">开关</button>
+      </div>
+      <vModelVue v-model="isShow" v-model:textValue.isBt="textValue"></vModelVue>
+    </div>
     <SetupFunc name="setup函数传值" @on-click="clickSetupFunc"></SetupFunc>
     <button @click="randomHandlder">随机按钮</button>
     <TransitionGroup move-class="move-animal" tag="div" class="wraps">
@@ -20,12 +28,16 @@
 </template>
 
 <script setup lang="ts">
-import {ref,reactive,watch} from 'vue'
+import vModelVue from '@/views/v-model/index.vue'
 import DynamicComponents from '@/views/DynamicComponents/index.vue'
 import ProvideDemo from '@/views/ProvideDemo/index.vue'
 import SetupFunc from '@/views/Tsx/SetupFunc'
 import _ from 'lodash'
 import gsap from 'gsap'
+
+
+const isShow = ref<boolean>(true)
+const textValue = ref<string>('默认值')
 
 function clickSetupFunc(params:any) {
   console.log(params);
