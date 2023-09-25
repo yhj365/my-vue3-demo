@@ -1,7 +1,7 @@
-import { effect,track,trigger } from './effect.js'
+import { track, trigger } from './effect.js'
 
-export const ref = value =>{
-  return new RefImpl(value);
+export const ref = value => {
+  return new RefImpl(value)
 }
 
 class RefImpl {
@@ -9,11 +9,11 @@ class RefImpl {
     this._value = value
   }
   get value() {
-    track(this,'value')
+    track(this, 'value')
     return this._value
-   }
-  set value(newValue) { 
+  }
+  set value(newValue) {
     this._value = newValue
-    trigger(this,'value')
-   }
+    trigger(this, 'value')
+  }
 }

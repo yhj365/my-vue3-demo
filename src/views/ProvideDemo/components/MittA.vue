@@ -5,15 +5,13 @@
 </template>
 
 <script setup lang="ts">
-import {getCurrentInstance, ref} from 'vue'
+import { getCurrentInstance } from 'vue'
 const instance = getCurrentInstance()
 function emit() {
-  console.log('on-mitt');
-  
-  instance?.proxy?.$Bus.emit('on-mitt','mitt')
+  console.log('on-mitt')
+
+  instance?.proxy?.$Bus.emit('on-mitt', 'mitt')
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

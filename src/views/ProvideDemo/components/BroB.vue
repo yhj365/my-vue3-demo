@@ -6,18 +6,15 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 import Bus from '@/utils/Bus'
 
 let flag = ref(false)
-Bus.on('on-click',(data:boolean)=>{
-  console.log(data);
-  
+Bus.on('on-click', (data: boolean) => {
+  console.log(data)
+
   flag.value = data
 })
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

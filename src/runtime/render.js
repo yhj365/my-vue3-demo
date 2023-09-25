@@ -1,35 +1,34 @@
-
 const SHAPEFLAG = {
   ELEMENT: 1,
   TEXT: 1 << 1,
   COMPONENT: 1 << 2,
   TEXT_CHILDREN: 1 << 3,
-  ARRAY_CHILDREN: 1 << 4
+  ARRAY_CHILDREN: 1 << 4,
 }
-const Text = Symbol("Text")
+const Text = Symbol('Text')
 //js当中 事件都是以on开头
 const eventReg = /^on[A-Z]/
 
 // 创建一个vnode
-const h = (type, props, children)=>{
+const h = (type, props, children) => {
   let shapeFlag = 0
   // 根据type类型判断节点类型，存到shapeFlag
-  if(typeof type ==='string'){
+  if (typeof type === 'string') {
     shapeFlag = SHAPEFLAG.ELEMENT
-  }else if (type === Text){
-    console.log(type);
+  } else if (type === Text) {
+    console.log(type)
     shapeFlag |= SHAPEFLAG.TEXT
-  }else{
+  } else {
     shapeFlag |= SHAPEFLAG.COMPONENT
   }
 
   // 根据children 的类型 ，判断子节点的类型，保存在 shaoeFlag
-  if(typeof children === 'string'){
+  if (typeof children === 'string') {
     shapeFlag |= SHAPEFLAG.ELEMENT
-  } else if (typeof children === 'number'){
+  } else if (typeof children === 'number') {
     shapeFlag |= SHAPEFLAG.TEXT_CHILDREN
     children = children + ''
-  }else if(Array.isArray(children)){
+  } else if (Array.isArray(children)) {
     shapeFlag |= SHAPEFLAG.ARRAY_CHILDREN
   }
   return {
@@ -38,87 +37,87 @@ const h = (type, props, children)=>{
     children,
     shapeFlag,
     el: null,
-    key: props && props.key
+    key: props && props.key,
   }
 }
 
-export const render = (vnode, container)=> {
+export const render = (vnode, container) => {
   const prevNode = container._vnode
-  if(vnode){
+  if (vnode) {
     patch(prevNode, vnode, container)
-  }else{
+  } else {
     prevNode && unmount(prevNode)
   }
   // container.innerHTML = ''
   mount(vnode, container)
 }
 
-export const processTextNode = (n1, n2, container)=>{
-  if(n1){
+export const processTextNode = (n1, n2, container) => {
+  if (n1) {
     patchTextNode(n1, n2)
-  }else{
-    mountTextNode(n2,container)
+  } else {
+    mountTextNode(n2, container)
   }
 }
-export const processElement = (n1, n2, container)=>{
-  if(n1){
+export const processElement = (n1, n2, container) => {
+  if (n1) {
     patchElement(n1, n2)
-  }else{
-    mountElement(n2,container)
+  } else {
+    mountElement(n2, container)
   }
 }
-export const patch = (n1, n2, container)=>{
-  if(n1 && n1.type !== n2.type){
-    unmount(n1);
-    nl = null;
+export const patch = (n1, n2, container) => {
+  if (n1 && n1.type !== n2.type) {
+    unmount(n1)
+    nl = null
   }
   const { shapeFlag } = n2
-  if(shapeFlag & SHAPEFLAG.TEXT){
-    processTextNode(n1,n2,container)
-  }else if(shapeFlag & SHAPEFLAG.ELEMENT){
-    processElement(n1,n2,container)
+  if (shapeFlag & SHAPEFLAG.TEXT) {
+    processTextNode(n1, n2, container)
+  } else if (shapeFlag & SHAPEFLAG.ELEMENT) {
+    processElement(n1, n2, container)
   }
 }
 
-const patchTextNode = (n1, n2) =>{
+const patchTextNode = (n1, n2) => {
   n2.el = n1.el
   n1.el.textContent = n2.children
 }
 
-const patchElement = (n1, n2) =>{
+const patchElement = (n1, n2) => {
   n2.el = n1.el
 
   patchProps(n1.props, n2.props, n2.el)
   patchChildren(n1, n2, n2.el)
 }
 
-const patchProps = (oldProps, newProps, el)=>{
+const patchProps = (oldProps, newProps, el) => {
   if (oldprops === newProps) {
     return
   }
   for (const key in oldprops) {
     if (newprops[key] == null) {
-      patchDomProps(oldprops[key] , null , key , el)
+      patchDomProps(oldprops[key], null, key, el)
     }
   }
   for (const key in newProps) {
     const prev = oldprops[keyl]
     const next = newProps[key]
-    if(prev !== next){
-      patchDomProps(prev, next , key , el)
+    if (prev !== next) {
+      patchDomProps(prev, next, key, el)
     }
   }
 }
 
-const patchDomProps = (prev, next , key , el)=>{
+const patchDomProps = (prev, next, key, el) => {
   switch (key) {
     case 'class':
       el.className = next || ''
-      break;
+      break
     case 'style':
       if (next == null) {
-        el.removeAttribute('style');
-      }else {
+        el.removeAttribute('style')
+      } else {
         if (prev) {
           for (const styleName in prev) {
             if (next[styleName] == null) {
@@ -127,10 +126,10 @@ const patchDomProps = (prev, next , key , el)=>{
           }
         }
         for (const styleName in next) {
-          el .style[styleName] = next[styleName]
+          el.style[styleName] = next[styleName]
         }
       }
-      break;
+      break
     default:
       if (eventReg.test(key)) {
         const eventName = key.slice(2).toLowerCase()
@@ -140,7 +139,7 @@ const patchDomProps = (prev, next , key , el)=>{
         if (next) {
           el.addEventListener(eventName, next)
         }
-      }else{
+      } else {
         if (next == null || next == false) {
           el.removeEventListener(key)
         }
@@ -148,134 +147,126 @@ const patchDomProps = (prev, next , key , el)=>{
           el.addEventListener(key, next)
         }
       }
-      break;
+      break
   }
 }
 
-const patchChildren = (n1, n2,container)=>{
-  const {shapeflag: prevShapeFlag, children: prevChildren}  = n1
-  const {shapeflag: nextShapeFlag, children: nextChildren}  = n2
+const patchChildren = (n1, n2, container) => {
+  const { shapeflag: prevShapeFlag, children: prevChildren } = n1
+  const { shapeflag: nextShapeFlag, children: nextChildren } = n2
 
-  if (prevShapeFlag & SHAPEFLAG.TEXT_CHILDREN){
+  if (prevShapeFlag & SHAPEFLAG.TEXT_CHILDREN) {
     if (nextShapeFlag & SHAPEFLAG.TEXT_CHILDREN) {
       container.textContent = nextChildren
-    }else if (nextShapeFlag & SHAPEFLAG.ARRAY_CHILDREN){
-      container.textContent = '';
-      moutChildren(nextChildren, container)}
-    else{
+    } else if (nextShapeFlag & SHAPEFLAG.ARRAY_CHILDREN) {
+      container.textContent = ''
+      moutChildren(nextChildren, container)
+    } else {
       container.textContent = ''
     }
-  }else if(prevShapeFlag & SHAPEFLAG.ARRAY_CHILDREN){
-    if(nextShapeFlag & SHAPEFLAG.TEXT_CHILDREN){
+  } else if (prevShapeFlag & SHAPEFLAG.ARRAY_CHILDREN) {
+    if (nextShapeFlag & SHAPEFLAG.TEXT_CHILDREN) {
       unmountChildren(prevChildren)
       container.textContent = nextChildren
-    }else if(nextShapeFlag & SHAPEFLAG.ARRAY_CHILDREN){
+    } else if (nextShapeFlag & SHAPEFLAG.ARRAY_CHILDREN) {
       patchArrayChildren(prevChildren, nextChildren, container)
-    }else{
+    } else {
       unmountChildren(nextChildren, container)
     }
   }
 }
-const patchArrayChildren = (prev, next,container)=>{
-  const oldLength = prev.length;
-  const newLength = next.length;
+const patchArrayChildren = (prev, next, container) => {
+  const oldLength = prev.length
+  const newLength = next.length
   const commomLengtn = Math.min(oldLength, newLength)
-  for (let i = 0; i < commomLengtn; i++){
-    patch(prev[i],next[i], container)
+  for (let i = 0; i < commomLengtn; i++) {
+    patch(prev[i], next[i], container)
   }
-  if(oldLength > newLength){
+  if (oldLength > newLength) {
     unmountChildren(prev.slice(commomLengtn))
-  }else if(oldlength < newlength){
-    moutChildren(next.slice(commomLengtn),container)
+  } else if (oldlength < newlength) {
+    moutChildren(next.slice(commomLengtn), container)
   }
 }
 
-const mount = (vnode, container)=>{
-  const { shapeFlag } = vnode;
-  if(shapeFlag & SHAPEFLAG.TEXT){
+const mount = (vnode, container) => {
+  const { shapeFlag } = vnode
+  if (shapeFlag & SHAPEFLAG.TEXT) {
     // 单独调用文本节点的演染方法
     mountTextNode(vnode, container)
-  }else if(shapeFlag & SHAPEFLAG.ELEMENT ){
+  } else if (shapeFlag & SHAPEFLAG.ELEMENT) {
     // 元素节点的挂裁方法
     mountElement(vnode, container)
-    
-  }else if(shapeFlag & SHAPEFLAG.COMPONENT ){
-    
+  } else if (shapeFlag & SHAPEFLAG.COMPONENT) {
     mountComponent(vnode, container)
   }
 }
-    
+
 const mountTextNode = (vnode, container) => {
   const textNode = document.createTextNode(vnode.children)
   container.appendChild(textNode)
   vnode.el = textNode
 }
 const mountElement = (vnode, container) => {
-  const {
-    type,
-    props,
-    children,
-    shapeFlag, 
-  } = vnode
+  const { type, props, children, shapeFlag } = vnode
   const el = document.createElement(type)
   // 挂载属性
   mountprops(props, el)
   // 子节点类型不同， 调用不同的方法 挂载子节点
-  if(shapeFlag & SHAPEFLAG.TEXT_CHILDREN){
-    mountTextNode(vnode,el)
-  }else if( shapeFlag & SHAPEFLAG.ARRAY_CHILDREN){
+  if (shapeFlag & SHAPEFLAG.TEXT_CHILDREN) {
+    mountTextNode(vnode, el)
+  } else if (shapeFlag & SHAPEFLAG.ARRAY_CHILDREN) {
     moutChildren(children, el)
   }
   container.appendChild(el)
   vnode.el = el
 }
 
-const moutChildren = (children,container) => {
-  children.forEach( child => {
-    patch(child ,container)
+const moutChildren = (children, container) => {
+  children.forEach(child => {
+    patch(child, container)
   })
 }
 // 组件
 const mountComponent = (vnode, container) => {
-
+  console.log(vnode, container)
 }
 
-
 const mountprops = (props, el) => {
-  for(const key in props) {
-    const value = props[key];
+  for (const key in props) {
+    const value = props[key]
     switch (key) {
-      case "class":
-        el.className = value;
-        break;
-      case "style":
+      case 'class':
+        el.className = value
+        break
+      case 'style':
         for (const styleName in value) {
           el.style[styleName] = value[styleName]
         }
-        break;
+        break
       default:
         if (eventReg.test(key)) {
           // onclick 转为 click
           const eventName = key.slice(2).toLowerCase()
-          el.addEventListener(eventName, value) 
-        }else {
+          el.addEventListener(eventName, value)
+        } else {
           el.setAttribute(key, value)
         }
-        break;
+        break
     }
   }
 }
 
 const unmount = vnode => {
   // 前文说的 el 派上用场了
-  console.log(vnode);
-  const {el} = vnode;
-  el.parentNode.removeChild(el);
+  console.log(vnode)
+  const { el } = vnode
+  el.parentNode.removeChild(el)
 }
 const unmountChildren = children => {
-  children.forEach(child =>{
-    unmount(child);
-  });
+  children.forEach(child => {
+    unmount(child)
+  })
 }
 
 // 普通渲染test
@@ -302,26 +293,22 @@ const unmountChildren = children => {
 
 // 修改节点重新渲染test
 render(
-  h('ul', null,[
-    h('li', null,'我是 first'),
-    h('li', null,[
-      h('li', null,'我是second 的1'),
-      h('li', null,'我是second 的2'),
-      h('li', null,'我是second 的3'),
-    ]),
-    h('li', null, 'third')
+  h('ul', null, [
+    h('li', null, '我是 first'),
+    h('li', null, [h('li', null, '我是second 的1'), h('li', null, '我是second 的2'), h('li', null, '我是second 的3')]),
+    h('li', null, 'third'),
   ]),
   document.body
 )
-  setTimeout(() => {
-    h('ul', null,[
-      h('li', null,'first'),
-      h('li', null,[
-        h('li', null,'我是second 的first'),
-        h('li', null,'我是second 的我是second'),
-        h('li', null,'我是second 的third'),
-      ]),
-      h('li', null, 'third')
+setTimeout(() => {
+  h('ul', null, [
+    h('li', null, 'first'),
+    h('li', null, [
+      h('li', null, '我是second 的first'),
+      h('li', null, '我是second 的我是second'),
+      h('li', null, '我是second 的third'),
     ]),
-  document.body
-  },5000)
+    h('li', null, 'third'),
+  ]),
+    document.body
+}, 5000)

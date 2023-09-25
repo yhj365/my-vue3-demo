@@ -2,27 +2,27 @@
   <div class="xm-content">
     <button @click="switchBtn">过渡效果切换</button>
     <!-- gsap函数过渡 -->
-    <transition  mode="out-in" @before-enter="enterFrom" @enter="enterActive" @leave="leave">
-      <div class="block-red" v-if="showMain" ></div>
-      <div class="block-yellow" v-else ></div>
+    <transition mode="out-in" @before-enter="enterFrom" @enter="enterActive" @leave="leave">
+      <div class="block-red" v-if="showMain"></div>
+      <div class="block-yellow" v-else></div>
     </transition>
     <!-- css版本过渡 -->
     <transition name="fade" mode="out-in">
-      <div class="block-red" v-if="showMain" ></div>
-      <div class="block-yellow" v-else ></div>
+      <div class="block-red" v-if="showMain"></div>
+      <div class="block-yellow" v-else></div>
     </transition>
-      <Main></Main>
-      <WaterFall :list="waterFallList"></WaterFall>
+    <Main></Main>
+    <WaterFall :list="waterFallList"></WaterFall>
     <ScssTest></ScssTest>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import Main from '@/views/Main/index.vue'
 import ScssTest from '@/views/ScssTest/index.vue'
 import WaterFall from '@/views/water-fall/index.vue'
-import { gsap } from "gsap"
+import { gsap } from 'gsap'
 const waterFallList = ref([
   {
     height: 300,
@@ -89,61 +89,61 @@ function switchBtn() {
 
 function enterFrom(el) {
   gsap.set(el, {
-    width:0,
-    height:0,
+    width: 0,
+    height: 0,
   })
 }
-function enterActive(el,done) {
+function enterActive(el, done) {
   gsap.to(el, {
     width: '200px',
     height: '200px',
-    onComplete: done
+    onComplete: done,
   })
 }
-function leave(el,done) {
+function leave(el, done) {
   gsap.to(el, {
     width: 0,
     height: 0,
-    onComplete: done
+    onComplete: done,
   })
 }
 </script>
 
 <style lang="scss" scoped>
-@include b(content){
+@include b(content) {
   flex: 1;
   overflow: auto;
 }
-.block-red{
+.block-red {
   background-color: red;
   width: 200px;
   height: 200px;
 }
-.block-yellow{
+.block-yellow {
   background-color: yellow;
   width: 200px;
   height: 200px;
   margin-bottom: 20px;
 }
-.fade-enter-from{
+.fade-enter-from {
   height: 0;
   width: 0;
 }
-.fade-enter-active{
+.fade-enter-active {
   transition: all 1.5s ease;
 }
-.fade-enter-to{
+.fade-enter-to {
   height: 200px;
   width: 200px;
 }
-.fade-leave-from{
+.fade-leave-from {
   height: 200px;
   width: 200px;
 }
-.fade-leave-active{
+.fade-leave-active {
   transition: all 1.5s ease;
 }
-.fade-leave-to{
+.fade-leave-to {
   height: 0;
   width: 0;
 }

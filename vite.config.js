@@ -5,6 +5,7 @@ import myJsx from "./plugin/index";
 import path from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite';
 import AutoImport from "unplugin-auto-import/vite";
+import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig({
   plugins: [
@@ -16,7 +17,9 @@ export default defineConfig({
     AutoImport({
       imports: ['vue'],
       dts: 'src/auto-import.d.ts',
-    })
+    }),
+    // * EsLint 报错信息显示在浏览器界面上
+    eslintPlugin(),
   ],
   resolve:{
     alias:{

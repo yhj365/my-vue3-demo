@@ -1,16 +1,11 @@
 <template>
-  <div class="xm-header">
-    header
-  </div>
+  <div class="xm-header">header</div>
 </template>
 
-<script setup>
-import {ref} from 'vue'
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
-@include b(header){
+@include b(header) {
   height: 50px;
   border-bottom: 1px solid #ccc;
 }

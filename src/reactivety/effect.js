@@ -1,17 +1,17 @@
-export const reactive = target =>{
-  return new Proxy(target,{
-    get(target, key, receiver){
-      const res = Reflect.get(target, key,receiver)
-      console.log('数据收集');
+export const reactive = target => {
+  return new Proxy(target, {
+    get(target, key, receiver) {
+      const res = Reflect.get(target, key, receiver)
+      console.log('数据收集')
       track(target, key)
       return res
     },
-    set(target, key, receiver){
-      const res = Reflect.set(target, key,receiver)
-      console.log('数据更新');
+    set(target, key, receiver) {
+      const res = Reflect.set(target, key, receiver)
+      console.log('数据更新')
       trigger(target, key)
       return res
-    }
+    },
   })
 }
 
@@ -19,13 +19,13 @@ const targetMap = new Map()
 const effectStack = []
 let activeEffect
 
-export const effect = (fn, scheduler = null ) =>{
-  const effectFn = ()=>{
-    try{
+export const effect = (fn, scheduler = null) => {
+  const effectFn = () => {
+    try {
       effectStack.push(effectFn)
       activeEffect = fn
       return fn()
-    }finally{
+    } finally {
       effectStack.pop()
       activeEffect = effectStack[effectStack.length - 1]
     }
@@ -34,39 +34,39 @@ export const effect = (fn, scheduler = null ) =>{
   effectFn()
 
   // 挂载调度函数
-  if(scheduler){
+  if (scheduler) {
     effectFn.scheduler = scheduler
   }
 
   return effectFn
 }
 
-export const track = (target,key)=>{
-  if(!activeEffect){
+export const track = (target, key) => {
+  if (!activeEffect) {
     return
   }
   let depsMap = targetMap.get(target)
-  if(!depsMap){
+  if (!depsMap) {
     depsMap = new Map()
-    targetMap.set(target,depsMap)
+    targetMap.set(target, depsMap)
   }
   let deps = depsMap.get(key)
-  if(!deps){
+  if (!deps) {
     deps = new Set()
-    depsMap.set(key,deps)
+    depsMap.set(key, deps)
   }
   deps.add(activeEffect)
 }
-export const trigger = (target,key)=>{
+export const trigger = (target, key) => {
   let depsMap = targetMap.get(target)
-  if(!depsMap){
+  if (!depsMap) {
     return
   }
   let deps = depsMap.get(key)
-  if(!deps){
+  if (!deps) {
     return
   }
-  deps.forEach(effectFn=>
+  deps.forEach(effectFn =>
     //如果有调度函数，优先执行调度函数
     // 否则调用effect本身
     effectFn.scheduler ? effectFn.scheduler(effectFn) : effectFn()

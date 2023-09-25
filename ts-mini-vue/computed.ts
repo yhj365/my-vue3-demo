@@ -1,14 +1,16 @@
-import { effect } from "./effect.js"
+import { effect } from './effect.js'
 
-export const computed = (getter)=>{
-  let _value = effect(getter,{
-    scheduler: () => {_dirty = true}
+export const computed = getter => {
+  let _value = effect(getter, {
+    scheduler: () => {
+      _dirty = true
+    },
   })
   let catchValue
   let _dirty = true
   class ComputedRefImpl {
     get value() {
-      if(_dirty){
+      if (_dirty) {
         catchValue = _value()
         _dirty = false
       }

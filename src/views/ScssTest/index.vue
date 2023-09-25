@@ -6,17 +6,15 @@
   </div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
-@include b(test){
+@include b(test) {
   color: red;
-  @include e(inner){
+  @include e(inner) {
     color: blue;
   }
-  @include m(success){
+  @include m(success) {
     color: green;
   }
 }

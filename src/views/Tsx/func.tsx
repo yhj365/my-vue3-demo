@@ -1,5 +1,3 @@
-export default function(){
-  return (
-    <div>jsx-function</div>
-  )
+export default function () {
+  return <div>jsx-function</div>
 }

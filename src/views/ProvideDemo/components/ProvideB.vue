@@ -7,20 +7,20 @@
 </template>
 
 <script setup lang="ts">
-import type {Ref} from 'vue'
-import {ref,inject} from 'vue'
+import type { Ref } from 'vue'
+import { inject } from 'vue'
 
 const colorVal = inject<Ref<string>>('color')
-function change(params:string) {
+function change(params: string) {
   colorVal!.value = params
 }
 </script>
 
 <style lang="scss" scoped>
-.box{
+.box {
   height: 50px;
   width: 50px;
   border: 1px solid #ccc;
-  background-color: v-bind(colorVal)
+  background-color: v-bind(colorVal);
 }
 </style>

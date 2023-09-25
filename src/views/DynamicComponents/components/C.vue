@@ -1,14 +1,7 @@
 <template>
-  <div>
-    C
-  </div>
+  <div>C</div>
 </template>
 
-<script setup>
-import {ref} from 'vue'
+<script setup></script>
 
-</script>
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
