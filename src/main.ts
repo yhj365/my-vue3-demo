@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import ElementPlus from 'element-plus'
+// import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import mitt from 'mitt'
 import Card from './components/Card/index.vue'
@@ -50,6 +50,6 @@ declare module '@vue/runtime-core' {
 // app.use(Loading)
 // 使用自定义myUse
 MyUse(Loading)
-MyUse(ElementPlus)
+// MyUse(ElementPlus)
 
 app.mount('#app')

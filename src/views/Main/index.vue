@@ -11,7 +11,7 @@
       <vModelVue v-model="isShow" v-model:textValue.isBt="textValue"></vModelVue>
     </div>
     <SetupFunc name="setup函数传值" @on-click="clickSetupFunc"></SetupFunc>
-    <button @click="randomHandlder">随机按钮</button>
+    <el-button type="primary" @click="randomHandlder">随机按钮</el-button>
     <TransitionGroup move-class="move-animal" tag="div" class="wraps">
       <div class="items" v-for="item in list" :key="item.id">
         {{ item.number }}
