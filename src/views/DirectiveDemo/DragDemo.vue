@@ -6,12 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import { Directive, DirectiveBinding } from 'vue'
+import { Directive } from 'vue'
 
-const vMove: Directive<any, void> = (el: HTMLElement, binding: DirectiveBinding) => {
+const vMove: Directive<any, void> = (el: HTMLElement) => {
   let moveElement: HTMLDivElement = el.firstElementChild as HTMLDivElement
-  console.log(binding)
-
   const mouseDown = (e: MouseEvent) => {
     let x = e.clientX - el.offsetLeft
     let y = e.clientY - el.offsetTop

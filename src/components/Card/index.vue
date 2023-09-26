@@ -4,11 +4,13 @@
       <div>标题</div>
       <div>副标题</div>
     </header>
-    <section>123</section>
+    <section>123{{ isShow }}</section>
   </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+const isShow = ref<boolean>(false)
+</script>
 
 <style lang="scss" scoped>
 $border: #ccc;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ImgsLazy></ImgsLazy>
     <DirectiveDemo></DirectiveDemo>
     <div>
       <h1>我是v-model父组件</h1>
@@ -29,11 +30,12 @@
 </template>
 
 <script setup lang="ts">
+import ImgsLazy from '@/views/ImgsLazy/index.vue'
 import DirectiveDemo from '@/views/DirectiveDemo/index.vue'
 import vModelVue from '@/views/v-model/index.vue'
 import DynamicComponents from '@/views/DynamicComponents/index.vue'
 import ProvideDemo from '@/views/ProvideDemo/index.vue'
-import SetupFunc from '@/views/Tsx/SetupFunc'
+import SetupFunc from '@/views/Tsx/setupFunc'
 import _ from 'lodash'
 import gsap from 'gsap'
 

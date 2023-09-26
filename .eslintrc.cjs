@@ -41,7 +41,7 @@ module.exports = {
     'no-irregular-whitespace': 'off', // 禁止不规则的空白
 
     // typeScript (https://typescript-eslint.io/rules)
-    '@typescript-eslint/no-unused-vars': 'error', // 禁止定义未使用的变量
+    '@typescript-eslint/no-unused-vars': 'off', // 禁止定义未使用的变量
     '@typescript-eslint/prefer-ts-expect-error': 'error', // 禁止使用 @ts-ignore
     '@typescript-eslint/no-inferrable-types': 'off', // 可以轻松推断的显式类型可能会增加不必要的冗长
     '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
@@ -64,7 +64,7 @@ module.exports = {
 
     // vue (https://eslint.vuejs.org/rules)
     'vue/no-v-html': 'off', // 禁止使用 v-html
-    'vue/script-setup-uses-vars': 'error', // 防止<script setup>使用的变量<template>被标记为未使用，此规则仅在启用该no-unused-vars规则时有效。
+    'vue/script-setup-uses-vars': 'off', // 防止<script setup>使用的变量<template>被标记为未使用，此规则仅在启用该no-unused-vars规则时有效。
     'vue/v-slot-style': 'error', // 强制执行 v-slot 指令样式
     'vue/no-mutating-props': 'off', // 不允许组件 prop的改变
     'vue/custom-event-name-casing': 'off', // 为自定义事件名称强制使用特定大小写
