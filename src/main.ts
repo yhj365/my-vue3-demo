@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import './assets/tailwindcss/index.css'
 import mitt from 'mitt'
 import Card from './components/Card/index.vue'
 import Tree from './components/Tree/index.vue'
@@ -50,6 +51,7 @@ declare module '@vue/runtime-core' {
 // app.use(Loading)
 // 使用自定义myUse
 MyUse(Loading)
+// 使用unplugin-vue-components，自动按需导入
 // MyUse(ElementPlus)
 
 app.mount('#app')

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h-func></h-func>
+    <!-- tailwind 示例 -->
+    <div class="bg-red-500 text-8xl text-slate-200">hello tailwind</div>
     <ImgsLazy></ImgsLazy>
     <DirectiveDemo></DirectiveDemo>
     <div>
@@ -30,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import HFunc from '@/views/h-func/index.vue'
 import ImgsLazy from '@/views/ImgsLazy/index.vue'
 import DirectiveDemo from '@/views/DirectiveDemo/index.vue'
 import vModelVue from '@/views/v-model/index.vue'
