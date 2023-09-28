@@ -1,5 +1,12 @@
 <template>
   <div>
+    <PiniaDemo></PiniaDemo>
+    <yhj-btn params="参数内容"></yhj-btn>
+    <CompileMacros :typeList="[999, 888, 777]" @send-info="onSend">
+      <template #default="{ item, index }">
+        <span>{{ item }}--{{ index }}</span>
+      </template>
+    </CompileMacros>
     <h-func></h-func>
     <!-- tailwind 示例 -->
     <div class="bg-red-500 text-8xl text-slate-200">hello tailwind</div>
@@ -33,6 +40,9 @@
 </template>
 
 <script setup lang="ts">
+import PiniaDemo from '@/views/PiniaDemo/index.vue'
+import CustomVueCeVue from '@/views/webComponent/custom-vue.ce.vue'
+import CompileMacros from '@/views/CompileMacros/index.vue'
 import HFunc from '@/views/h-func/index.vue'
 import ImgsLazy from '@/views/ImgsLazy/index.vue'
 import DirectiveDemo from '@/views/DirectiveDemo/index.vue'
@@ -42,6 +52,14 @@ import ProvideDemo from '@/views/ProvideDemo/index.vue'
 import SetupFunc from '@/views/Tsx/setupFunc'
 import _ from 'lodash'
 import gsap from 'gsap'
+import { defineCustomElement } from 'vue'
+
+const Btn = defineCustomElement(CustomVueCeVue)
+window.customElements.define('yhj-btn', Btn)
+
+const onSend = data => {
+  console.log(data)
+}
 
 const isShow = ref<boolean>(true)
 const textValue = ref<string>('默认值')

@@ -8,6 +8,9 @@ import Card from './components/Card/index.vue'
 import Tree from './components/Tree/index.vue'
 import Loading from './components/Loading'
 import { MyUse } from './myUse'
+import { createPinia } from 'pinia'
+
+const store = createPinia()
 const Mitt = mitt()
 //TypeScript注册
 // 由于必须要拓展ComponentCustomProperties类型才能获得类型提示
@@ -19,6 +22,7 @@ declare module 'vue' {
 
 export const app = createApp(App)
 
+app.use(store)
 app.component('Card', Card)
 app.component('Tree', Tree)
 
