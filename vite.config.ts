@@ -18,8 +18,8 @@ export default ({ mode }: any) => {
     server: {
       proxy: {
         '/api': {
-          target: 'http://localhost:9999',
-          rewrite: path => path.replace(/^\/api/, ''),
+          target: 'http://localhost:3333',
+          rewrite: path => path.replace(/^\/api/, '/api'),
         },
       },
     },

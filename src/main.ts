@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, toRaw } from 'vue'
 import App from './App.vue'
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -8,7 +8,8 @@ import Card from './components/Card/index.vue'
 import Tree from './components/Tree/index.vue'
 import Loading from './components/Loading'
 import { MyUse } from './myUse'
-import { createPinia } from 'pinia'
+import { createPinia, PiniaPluginContext } from 'pinia'
+import router from './router'
 
 const store = createPinia()
 const Mitt = mitt()
@@ -22,6 +23,30 @@ declare module 'vue' {
 
 export const app = createApp(App)
 
+// pinia plugin 持久化
+type Options = {
+  key?: string
+}
+const __piniaKey__: string = 'hj'
+const setStorage = (key: string, value: any) => {
+  localStorage.setItem(key, JSON.stringify(value))
+}
+const getStorage = (key: string) => {
+  return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key) as string) : {}
+}
+const piniaPlugin = (options: Options) => {
+  return (context: PiniaPluginContext) => {
+    const { store } = context
+    const data = getStorage(`${options?.key ?? __piniaKey__}-${store.$id}`)
+
+    store.$subscribe(() => {
+      setStorage(`${options?.key ?? __piniaKey__}-${store.$id}`, toRaw(store.$state))
+    })
+    return { ...data }
+  }
+}
+store.use(piniaPlugin({ key: 'pinia' }))
+app.use(router)
 app.use(store)
 app.component('Card', Card)
 app.component('Tree', Tree)

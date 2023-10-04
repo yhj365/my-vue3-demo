@@ -1,5 +1,6 @@
 <template>
   <div>
+    <EchartDemo></EchartDemo>
     <PiniaDemo></PiniaDemo>
     <yhj-btn params="参数内容"></yhj-btn>
     <CompileMacros :typeList="[999, 888, 777]" @send-info="onSend">
@@ -40,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import EchartDemo from '@/views/EchartDemo/index.vue'
 import PiniaDemo from '@/views/PiniaDemo/index.vue'
 import CustomVueCeVue from '@/views/webComponent/custom-vue.ce.vue'
 import CompileMacros from '@/views/CompileMacros/index.vue'
@@ -55,7 +57,9 @@ import gsap from 'gsap'
 import { defineCustomElement } from 'vue'
 
 const Btn = defineCustomElement(CustomVueCeVue)
-window.customElements.define('yhj-btn', Btn)
+nextTick(() => {
+  window.customElements.define('yhj-btn', Btn)
+})
 
 const onSend = data => {
   console.log(data)

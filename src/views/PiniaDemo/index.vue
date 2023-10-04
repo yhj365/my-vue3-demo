@@ -5,6 +5,7 @@
     <div>{{ current }}--{{ name }}</div>
     <div>getters==>{{ testStore.newName }}</div>
     <el-button @click="change">change</el-button>
+    <el-button @click="reset">reset</el-button>
   </div>
 </template>
 
@@ -38,6 +39,9 @@ const testStore = useTestStore()
 const change = () => {
   testStore.setCurrent(55)
   testStore.setName('齐天大圣')
+}
+const reset = () => {
+  testStore.$reset()
 }
 
 // pinia直接解构是没有响应式的,需要使用store
