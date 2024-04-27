@@ -35,7 +35,7 @@ const initRouter = async () => {
     router.addRoute({
       path: v.path,
       name: v.name,
-      component: () => import(`../views/${v.component}`),
+      component: () => import(`../views/${v.component.slice(-4)}.vue`),
     })
   })
   console.log(router.getRoutes())

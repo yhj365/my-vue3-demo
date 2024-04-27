@@ -13,7 +13,6 @@ import { visualizer } from 'rollup-plugin-visualizer'
 // vite.config不能使用import.env获取环境信息
 // 可以使用loadEnv(mode, process.cwd()获取环境变量
 export default ({ mode }: any) => {
-  console.log(loadEnv(mode, process.cwd()))
   return defineConfig({
     server: {
       proxy: {

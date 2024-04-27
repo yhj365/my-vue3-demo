@@ -1,7 +1,8 @@
 import { createApp, toRaw } from 'vue'
 import App from './App.vue'
-// import ElementPlus from 'element-plus'
+import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import './assets/tailwindcss/index.css'
 import mitt from 'mitt'
 import Card from './components/Card/index.vue'
@@ -77,10 +78,13 @@ declare module '@vue/runtime-core' {
     $loading: Loading
   }
 }
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 // app.use(Loading)
 // 使用自定义myUse
 MyUse(Loading)
 // 使用unplugin-vue-components，自动按需导入
-// MyUse(ElementPlus)
+MyUse(ElementPlus)
 
 app.mount('#app')

@@ -21,7 +21,7 @@ const imgList: Record<string, { default: string }> = import.meta.glob('@/assets/
 const arr = Object.values(imgList).map(v => v.default)
 
 const vMylazy: Directive<HTMLImageElement, string> = async (el, binding) => {
-  const def = await import('@/assets/images/utils/0014.jpg')
+  const def = await import(`@/assets/images/utils/0014.jpg`)
   el.src = def.default
   const observer = new IntersectionObserver(entr => {
     if (entr[0].intersectionRatio > 0) {

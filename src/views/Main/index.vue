@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ImagePreview :data="imageData"></ImagePreview>
     <EchartDemo></EchartDemo>
     <PiniaDemo></PiniaDemo>
     <yhj-btn params="参数内容"></yhj-btn>
@@ -52,9 +53,12 @@ import vModelVue from '@/views/v-model/index.vue'
 import DynamicComponents from '@/views/DynamicComponents/index.vue'
 import ProvideDemo from '@/views/ProvideDemo/index.vue'
 import SetupFunc from '@/views/Tsx/setupFunc'
+import ImagePreview from '@/views/ImagePreview/ImagePreview.vue'
+
 import _ from 'lodash'
 import gsap from 'gsap'
 import { defineCustomElement } from 'vue'
+import { IImageData } from '../ImagePreview/types'
 
 const Btn = defineCustomElement(CustomVueCeVue)
 nextTick(() => {
@@ -142,6 +146,45 @@ const treeData = ref<Tree[]>([
         checked: false,
       },
     ],
+  },
+])
+
+const imageData = reactive<IImageData[]>([
+  {
+    id: 1,
+    image: '0001',
+    rotate: 0,
+    scale: 1,
+  },
+  {
+    id: 2,
+    image: '0002',
+    rotate: 0,
+    scale: 1,
+  },
+  {
+    id: 3,
+    image: '0003',
+    rotate: 0,
+    scale: 1,
+  },
+  {
+    id: 4,
+    image: '0004',
+    rotate: 0,
+    scale: 1,
+  },
+  {
+    id: 5,
+    image: '0005',
+    rotate: 0,
+    scale: 1,
+  },
+  {
+    id: 6,
+    image: '0006',
+    rotate: 0,
+    scale: 1,
   },
 ])
 </script>

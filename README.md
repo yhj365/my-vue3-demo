@@ -18,5 +18,7 @@
   
 + web-component
 + web-component项目
-
++ 
+- 图片预览，左右切换，旋转缩放
+- ImagePreview
 
